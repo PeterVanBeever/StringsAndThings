@@ -1,11 +1,14 @@
 package io.zipcoder;
 
 
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import java.util.regex.PatternSyntaxException;
+
 /**
  * @author tariq
  */
 public class StringsAndThings {
-
     /**
      * Given a string, count the number of words ending in 'y' or 'z' -- so the 'y' in "heavy" and the 'z' in "fez" count,
      * but not the 'y' in "yellow" (not case sensitive). We'll say that a y or z is at the end of a word if there is not an alphabetic
@@ -15,7 +18,16 @@ public class StringsAndThings {
      *           countYZ("day fyyyz"); // Should return 2
      */
     public Integer countYZ(String input){
-        return null;
+        String evaluate = input;
+        //Pattern pattern = Pattern.compile("[(z$)g|(y$)]\\b");
+        Pattern pattern = Pattern.compile("[zy]\\b");
+        Matcher matcher = pattern.matcher(evaluate);
+        int count =0; //initialize counter
+        while (matcher.find()){
+            String match = matcher.group();
+            count++;
+        }
+        return count;
     }
 
     /**
@@ -28,7 +40,8 @@ public class StringsAndThings {
      *           removeString("Hello there", "x") // Should return "Hello there"
      */
     public String removeString(String base, String remove){
-        return null;
+
+        return base.replaceAll("" + remove, "");
     }
 
     /**
@@ -40,7 +53,33 @@ public class StringsAndThings {
      *           containsEqualNumberOfIsAndNot("noisxxnotyynotxisi") // Should return true
      */
     public Boolean containsEqualNumberOfIsAndNot(String input){
-        return null;
+        String evaluate = input;
+        //Pattern pattern = Pattern.compile("[(z$)g|(y$)]\\b");
+        Pattern pattern1 = Pattern.compile("is");
+        Matcher matcher1 = pattern1.matcher(evaluate);
+
+        Pattern pattern2 = Pattern.compile("not");
+        Matcher matcher2 = pattern2.matcher(evaluate);
+
+        int countIs =0; //initialize counter
+        int countNot =0;
+        while (matcher1.find()){
+//            String match1 = matcher1.group();
+            countIs++;
+        }
+        while (matcher2.find()){
+//            String match2 = matcher2.group();
+            countNot++;
+        }
+        Boolean result = null;
+        //use == for primitive types
+        if (countIs == (countNot)){
+            result = true;
+        }
+        else {
+            result = false;
+        }
+        return result;
     }
 
     /**
@@ -51,7 +90,18 @@ public class StringsAndThings {
      *           gHappy("xxggyygxx") // Should return  false
      */
     public Boolean gIsHappy(String input){
-        return null;
+        for (int i = 0 ; i < input.length(); i++){
+            // check index of string has g
+            if (input.charAt(i) == 'g') {
+                // check if index is greater than 0 and current char-1
+                if ((i > 0 && input.charAt(i -1) == 'g') || (i < input.length() - 1 && input.charAt(i + 1) == 'g')){
+                 continue;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 
@@ -63,6 +113,17 @@ public class StringsAndThings {
      *            countTriple("a") // Should return 0
      */
     public Integer countTriple(String input){
-        return null;
+        String evaluate = input;
+        //Pattern pattern = Pattern.compile("[(z$)g|(y$)]\\b");
+        Pattern pattern = Pattern.compile("([A-Za-z])\\1\\1");
+        Matcher matcher = pattern.matcher(evaluate);
+        int count =0; //initialize counter
+        while (matcher.find()){
+            String match = matcher.group();
+            count++;
+        }
+        return count;
     }
+
+
 }
